@@ -1,3 +1,4 @@
 data/
 .vim/
 tmp/
+__pycache__/
