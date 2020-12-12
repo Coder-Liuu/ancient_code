@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow,QMessageBox
 from PyQt5.uic import loadUi
 from PyQt5 import QtCore, QtWidgets
 from DataHelper import DataHelper
@@ -12,6 +12,12 @@ class Main:
         self.ui.btn_set_parameter.clicked.connect(self.set_parameter)
 
         self.ui.btn_spin.addItems(["KMeans","DBSCAN"])
+        self.ui.btn_run.clicked.connect(self.run)
+
+    def run(self):
+        if(self.DataHelper == None):
+            QMessageBox.about(self.ui,"运行失败","请选择你的数据集")
+        self.ui.t_ans.setText("运行成功!")
 
     def choose_path(self):
         file_name = QtWidgets.QFileDialog.getOpenFileName(self.ui,"请选择你要打开数据的名字","./data/","Csv files(*.csv)") 
@@ -36,8 +42,6 @@ class Main:
 
     def show_parameter(self):
         pass
-
-
 
 
 app = QApplication([])
