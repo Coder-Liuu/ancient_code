@@ -15,22 +15,35 @@ class ClusterHelper:
     def __init__(self):
         self.cluster = None
 
-    def set_Cluster(self):
-        self.cluster = KMeans(3)
+    def set_Cluster(self,algorithm):
+        if algorithm == "KMeans":
+            self.cluster = KMeans(3)
 
     def fit(self,data):
         if(self.cluster == None):
             print("请初始化聚类器")
             return
-        self.labels = data.pop("class")
-        self.cluster.fit()
+        self.labels = data.pop("class").values
+        self.cluster.fit(data)
 
     def get_score(self,name="None"):
         pred = self.cluster.labels_
-        if(name == "轮廓系数"):
-            score = silhouette_score(pred.reshape(-1,1),labels.values)
-        elif(name == "调整兰德系数"):
-            score = metrics.adjusted_rand_score(pred,labels.values)
+        score = {}
+        score1 = silhouette_score(pred.reshape(-1,1),self.labels)
+        score2 = metrics.adjusted_rand_score(pred,self.labels)
+
+        score["轮廓系数"] = score1
+        score["调整兰德系数"] = score2
+        return score
+
+if __name__ == "__main__":
+    data = pd.read_csv("data/iris.csv")
+
+    cluster = ClusterHelper()
+    cluster.set_Cluster("KMeans")
+    cluster.fit(data)
+    score = cluster.get_score("轮廓系数")
+    print(score)
 
 # # ----------------
 # n_clusters = 3

@@ -18,6 +18,11 @@ class SecondWindow():
             self.l2 = QSpinBox()
             self.l3 = QLineEdit()
             self.btn_yes = QPushButton("确定")
+
+            self.l2.setValue(3)
+            self.l3.setText(str(100))
+
+            self.btn_yes.clicked.connect(self.window_exit)
             vlayout.addRow("算法名称:",self.l1)
             vlayout.addRow("聚类簇个数:",self.l2)
             vlayout.addRow("最大迭代次数:",self.l3)
@@ -27,10 +32,15 @@ class SecondWindow():
 
         self.window.setLayout(vlayout)
 
+    def window_exit(self):
+        self.window.close()
+
+
     def show(self):
         self.window.show()
 
-app = QApplication([])
-s = SecondWindow("KMeans")
-s.show()
-app.exec_()
+if __name__ == "__main__":
+    app = QApplication([])
+    s = SecondWindow("KMeans")
+    s.show()
+    app.exec_()
