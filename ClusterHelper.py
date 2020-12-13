@@ -9,9 +9,9 @@ from pyclustering.cluster.silhouette import silhouette
 from sklearn import metrics
 from sklearn.metrics.cluster import silhouette_score
 from sklearn.cluster import KMeans,Birch,DBSCAN,OPTICS,MeanShift
-from sklearn.mixture import GaussianMixture
 from pyclustering.cluster.clique import clique
 from sklearn.manifold import TSNE
+from packing import GMM,CLIQUE
 
 
 class ClusterHelper:
@@ -26,15 +26,16 @@ class ClusterHelper:
         elif algorithm == "DBSCAN":
             self.cluster = DBSCAN(eps=2,min_samples=2)
         elif algorithm == "GMM":
-            self.cluster = GaussianMixture(n_components=3,max_iter= 100)
+            self.cluster = GMM()
         elif algorithm == "OPTICS":
             self.cluster = OPTICS()
         elif algorithm == "MeanShift":
             self.cluster = MeanShift()
         elif algorithm == "CLIQUE":
-            self.cluster = clique()
+            self.cluster = CLIQUE()
         else:
             print("没有找到分类器")
+            exit(0)
 
     def fit(self,data):
         if(self.cluster == None):
@@ -43,17 +44,10 @@ class ClusterHelper:
         self.data = data.copy()
         self.labels = self.data.pop("class").values
 
-        if isinstance(self.cluster,clique):
-            self.cluster.process()
-            # TODO: 完成clique的训练过程
-        else:
-            self.cluster.fit(data)
+        self.cluster.fit(data)
 
     def get_score(self,name="None"):
-        if isinstance(self.cluster,GaussianMixture):
-            self.pred = self.cluster.predict(data)
-        else:
-            self.pred = self.cluster.labels_
+        self.pred = self.cluster.labels_
 
         self.class_ = np.unique(self.pred)
         score = {}
@@ -74,7 +68,7 @@ if __name__ == "__main__":
     data = pd.read_csv("data/iris.csv")
 
     cluster = ClusterHelper()
-    cluster.set_Cluster("MeanShift")
+    cluster.set_Cluster("CLIQUE")
     cluster.fit(data)
     score = cluster.get_score("轮廓系数")
     cluster.imshow()
