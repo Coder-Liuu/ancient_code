@@ -21,7 +21,7 @@ class Main:
         self.ui.btn_choose_data.clicked.connect(self.choose_path)
         self.ui.btn_set_parameter.clicked.connect(self.set_parameter)
 
-        self.ui.btn_spin.addItems(["KMeans","DBSCAN","OPTICS","Mean-Shift","CLIQUE"])
+        self.ui.btn_spin.addItems(["KMeans","DBSCAN","OPTICS","MeanShift","CLIQUE"])
         self.ui.btn_run.clicked.connect(self.run)
         self.cluster = ClusterHelper()
 
@@ -74,8 +74,6 @@ class Main:
         """
         self.widget = DataTableWidget(self.ui)
         model = DataFrameModel()
-        # print(self.DataHelper.data)
-        # print("---.")
         model.setDataFrame(self.DataHelper.data)
         self.widget.setViewModel(model)
         self.widget.move(30,200)

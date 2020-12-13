@@ -22,7 +22,7 @@ class ClusterHelper:
         if algorithm == "KMeans":
             self.cluster = KMeans(3)
         elif algorithm == "BIRCH":
-            self.cluster = Birch(3)
+            self.cluster = Birch(n_clusters=3,threshold=0.5)
         elif algorithm == "DBSCAN":
             self.cluster = DBSCAN(eps=2,min_samples=2)
         elif algorithm == "GMM":
@@ -35,7 +35,6 @@ class ClusterHelper:
             self.cluster = CLIQUE()
         else:
             print("没有找到分类器")
-            exit(0)
 
     def fit(self,data):
         if(self.cluster == None):

@@ -13,27 +13,59 @@ class SecondWindow():
         vlayout = QFormLayout()
 
         if algorithm == "KMeans":
-            self.l1 = QLabel("Kmeans算法")
-            self.l2 = QSpinBox()
-            self.l3 = QLineEdit()
-            self.btn_yes = QPushButton("确定")
-
-            self.l2.setValue(3)
-            self.l3.setText(str(100))
-
-            vlayout.addRow("算法名称:",self.l1)
-            vlayout.addRow("聚类簇个数:",self.l2)
-            vlayout.addRow("最大迭代次数:",self.l3)
-            vlayout.addWidget(self.btn_yes)
-
+            self.list = [QLabel(),QSpinBox(),QLineEdit()]
+            self.str_list = ["算法名称:","聚类簇个数:","最大迭代次数:"]
+            self.list[0].setText("Kmeans算法")
+            self.list[1].setValue(3)
+            self.list[2].setText(str(100))
         elif algorithm == "BIRCH":
-            self.l1 = QLabel("BIRCH算法")
+            self.list = [QLabel(),QSpinBox(),QLineEdit()]
+            self.str_list = ["算法名称:","聚类簇个数:","阈值:"]
+            self.list[0].setText("BIRCH算法")
+            self.list[1].setValue(3)
+            self.list[2].setText(str(0.5))
+        elif algorithm == "DBSCAN":
+            self.list = [QLabel(),QDoubleSpinBox(),QLineEdit()]
+            self.str_list = ["算法名称:","距离阈值:","样本数阈值:"]
+            self.list[0].setText("DBSCAN算法")
+            self.list[1].setValue(2)
+            self.list[2].setText(str(2))
+        elif algorithm == "GMM":
+            self.list = [QLabel(),QSpinBox(),QLineEdit()]
+            self.str_list = ["算法名称:","聚类簇个数:","最大迭代次数:"]
+            self.list[0].setText("GMM算法")
+            self.list[1].setValue(3)
+            self.list[2].setText(str(100))
+        elif algorithm == "OPTICS":
+            self.list = [QLabel(),QDoubleSpinBox(),QLineEdit()]
+            self.str_list = ["算法名称:","最小样本数:","最大密度:"]
+            self.list[0].setText("OPTICS算法")
+            self.list[1].setValue(2)
+            self.list[2].setText(str(2))
+        elif algorithm == "MeanShift":
+            self.list = [QLabel(),QSpinBox(),QLineEdit()]
+            self.str_list = ["算法名称:","随机种子::","最大迭代次数:"]
+            self.list[0].setText("MeanShift算法")
+            self.list[1].setValue(2)
+            self.list[2].setText(str(2))
+        elif algorithm == "CLIQUE":
+            self.list = [QLabel(),QSpinBox(),QLineEdit()]
+            self.str_list = ["算法名称:","网格步长:","密度阈值:"]
+            self.list[0].setText("CLIQUE算法")
+            self.list[1].setValue(5)
+            self.list[2].setText(str(0))
 
+        for i in range(len(self.list)):
+            vlayout.addRow(self.str_list[i],self.list[i])
+        self.btn_yes = QPushButton("确定")
+        vlayout.addWidget(self.btn_yes)
         self.window.setLayout(vlayout)
 
 
     def window_exit(self):
-        self.message = "算法名称:"+self.l1.text() + "\n聚类簇个数" + self.l2.text() + "\n最大迭代次数" + self.l3.text()
+        self.message = ""
+        for i in range(len(self.list)):
+            self.message += self.str_list[i] + self.list[i].text() + "\n"
         self.window.close()
 
     def show(self):
