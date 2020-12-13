@@ -1,8 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow,QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow,QMessageBox,QWidget,QPlainTextEdit,QLabel,QBoxLayout
 from PyQt5.uic import loadUi
 from PyQt5 import QtCore, QtWidgets
 from DataHelper import DataHelper
+
 
 class Main:
     def __init__(self):
@@ -36,6 +37,9 @@ class Main:
         currentText = self.ui.btn_spin.currentText()
         if(currentText == "KMeans"):
             print("----------------")
+            # 必须设置为全局变量
+            self.newWindow = SecondWindow(algorithm=currentText)
+            self.newWindow.show()
         else:
             print("+++++++++++")
         self.show_parameter()
