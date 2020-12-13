@@ -9,7 +9,6 @@ class DataHelper:
     def read_data(self,path):
         self.data = pd.read_csv(path)
         self.class_ = len(self.data["class"].unique())
-        print(self.data["class"])
         self.shape = self.data.shape
 
 if __name__ == "__main__":

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>790</width>
-    <height>600</height>
+    <width>731</width>
+    <height>599</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,19 +27,6 @@
      <string>数据集位置</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="ldata_name">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>30</y>
-      <width>451</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btn_choose_data">
     <property name="geometry">
      <rect>
@@ -56,8 +43,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>100</y>
+      <x>50</x>
+      <y>80</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -66,24 +53,11 @@
      <string>数据基本属性</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="ldata_shape">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>150</y>
-      <width>113</width>
-      <height>34</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>150</y>
+      <y>120</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -96,26 +70,13 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>190</y>
+      <y>160</y>
       <width>91</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>类别个数</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="ldata_class">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>190</y>
-      <width>113</width>
-      <height>34</height>
-     </rect>
     </property>
    </widget>
    <widget class="QComboBox" name="btn_spin">
@@ -131,7 +92,7 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>430</x>
       <y>100</y>
       <width>101</width>
       <height>22</height>
@@ -141,23 +102,10 @@
      <string>聚类算法选择</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>320</y>
-      <width>101</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>聚类结果</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btn_set_parameter">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>430</x>
       <y>140</y>
       <width>95</width>
       <height>34</height>
@@ -211,8 +159,8 @@
      <rect>
       <x>420</x>
       <y>350</y>
-      <width>341</width>
-      <height>192</height>
+      <width>291</width>
+      <height>181</height>
      </rect>
     </property>
    </widget>
@@ -220,8 +168,8 @@
     <property name="geometry">
      <rect>
       <x>420</x>
-      <y>200</y>
-      <width>341</width>
+      <y>190</y>
+      <width>291</width>
       <height>111</height>
      </rect>
     </property>
@@ -230,37 +178,80 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>350</y>
+      <y>260</y>
       <width>331</width>
-      <height>191</height>
+      <height>281</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="ldata_shape">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>120</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="ldata_class">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>160</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="ldata_name">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>30</y>
+      <width>441</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_run_2">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>310</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>点击查看聚类图形可视化</string>
     </property>
    </widget>
    <zorder>line_2</zorder>
    <zorder>label</zorder>
-   <zorder>ldata_name</zorder>
    <zorder>btn_choose_data</zorder>
    <zorder>label_2</zorder>
-   <zorder>ldata_shape</zorder>
    <zorder>label_3</zorder>
    <zorder>label_4</zorder>
-   <zorder>ldata_class</zorder>
    <zorder>btn_spin</zorder>
    <zorder>label_6</zorder>
-   <zorder>label_7</zorder>
    <zorder>btn_set_parameter</zorder>
    <zorder>btn_run</zorder>
    <zorder>line</zorder>
    <zorder>t_ans</zorder>
    <zorder>tmessage_show</zorder>
    <zorder>graphicsView</zorder>
+   <zorder>ldata_shape</zorder>
+   <zorder>ldata_class</zorder>
+   <zorder>ldata_name</zorder>
+   <zorder>btn_run_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>790</width>
+     <width>731</width>
      <height>31</height>
     </rect>
    </property>

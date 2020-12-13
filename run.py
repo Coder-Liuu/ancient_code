@@ -2,15 +2,20 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow,QMessageBox,QWidget,QPlainTextEdit,QLabel,QBoxLayout
 from PyQt5.uic import loadUi
 from PyQt5 import QtCore, QtWidgets
+import pyqtgraph as pg
 from DataHelper import DataHelper
 from SecondWindow import SecondWindow
 from ClusterHelper import ClusterHelper
-
-
+import pandas as pd
+import matplotlib.pyplot as plt
+from qtpandas.compat import QtGui
+from qtpandas.models.DataFrameModel import DataFrameModel
+from qtpandas.views.DataTableView import DataTableWidget
 
 
 class Main:
     def __init__(self):
+        """ 初始化主界面 """
         self.ui = loadUi("UI/main.ui")
         self.DataHelper = None
         self.ui.btn_choose_data.clicked.connect(self.choose_path)
@@ -29,6 +34,7 @@ class Main:
         name = file_name.split("/")[-1]
         self.ui.ldata_name.setText(name)
         self.show_information()
+        self.show_data()
 
     def show_information(self):
         """ 显示数据集的基本信息 """
@@ -40,10 +46,11 @@ class Main:
         currentText = self.ui.btn_spin.currentText()
         self.cluster.set_Cluster(currentText)
         self.newWindow = SecondWindow(algorithm=currentText)
-        self.newWindow.btn_yes.clicked.connect(self.get_data)
+        self.newWindow.btn_yes.clicked.connect(self.get_parameter)
         self.newWindow.show()
 
-    def get_data(self):
+    def get_parameter(self):
+        """ 获得参数信息 """
         self.newWindow.window_exit()
         self.ui.tmessage_show.setText(self.newWindow.message)
 
@@ -51,6 +58,8 @@ class Main:
         """ 运行聚类算法 """
         if(self.DataHelper == None):
             QMessageBox.about(self.ui,"运行失败","请选择你的数据集")
+        elif(self.cluster.cluster == None ):
+            QMessageBox.about(self.ui,"运行失败","请初始化你的聚类器")
         else:
             self.cluster.fit(self.DataHelper.data)
             score = self.cluster.get_score()
@@ -58,6 +67,20 @@ class Main:
             for item in score.items():
                 text += item[0] + str(item[1]) + "\n"
             self.ui.t_ans.setText(text)
+
+    def show_data(self):
+        """
+        展示读取进来的数据
+        """
+        self.widget = DataTableWidget(self.ui)
+        model = DataFrameModel()
+        # print(self.DataHelper.data)
+        # print("---.")
+        model.setDataFrame(self.DataHelper.data)
+        self.widget.setViewModel(model)
+        self.widget.move(30,200)
+        self.widget.resize(350,350)
+        self.widget.show()
 
 app = QApplication([])
 main = Main()
