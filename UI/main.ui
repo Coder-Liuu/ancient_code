@@ -28,6 +28,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="ldata_name">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -64,6 +67,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="ldata_shape">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -100,6 +106,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="ldata_class">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -109,24 +118,11 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>270</y>
-      <width>101</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>聚类算法</string>
-    </property>
-   </widget>
    <widget class="QComboBox" name="btn_spin">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>310</y>
+      <x>580</x>
+      <y>100</y>
       <width>92</width>
       <height>34</height>
      </rect>
@@ -135,8 +131,8 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>310</y>
+      <x>470</x>
+      <y>100</y>
       <width>101</width>
       <height>22</height>
      </rect>
@@ -148,8 +144,8 @@
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>90</y>
+      <x>530</x>
+      <y>320</y>
       <width>101</width>
       <height>22</height>
      </rect>
@@ -161,8 +157,8 @@
    <widget class="QPushButton" name="btn_set_parameter">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>410</y>
+      <x>470</x>
+      <y>140</y>
       <width>95</width>
       <height>34</height>
      </rect>
@@ -171,29 +167,93 @@
      <string>设置算法参数</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="t_ans">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>120</y>
-      <width>311</width>
-      <height>171</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btn_run">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>490</y>
-      <width>95</width>
-      <height>34</height>
+      <x>580</x>
+      <y>140</y>
+      <width>91</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>RUN</string>
     </property>
    </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>70</y>
+      <width>16</width>
+      <height>471</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>761</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="t_ans">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>350</y>
+      <width>341</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="tmessage_show">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>200</y>
+      <width>341</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>350</y>
+      <width>331</width>
+      <height>191</height>
+     </rect>
+    </property>
+   </widget>
+   <zorder>line_2</zorder>
+   <zorder>label</zorder>
+   <zorder>ldata_name</zorder>
+   <zorder>btn_choose_data</zorder>
+   <zorder>label_2</zorder>
+   <zorder>ldata_shape</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_4</zorder>
+   <zorder>ldata_class</zorder>
+   <zorder>btn_spin</zorder>
+   <zorder>label_6</zorder>
+   <zorder>label_7</zorder>
+   <zorder>btn_set_parameter</zorder>
+   <zorder>btn_run</zorder>
+   <zorder>line</zorder>
+   <zorder>t_ans</zorder>
+   <zorder>tmessage_show</zorder>
+   <zorder>graphicsView</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

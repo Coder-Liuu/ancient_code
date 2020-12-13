@@ -8,7 +8,6 @@ class SecondWindow():
     def __init__(self,algorithm):
         self.window = QWidget()
 
-        # self.window.resize(300, 500)
         self.window.setWindowTitle('参数选择窗口')
 
         vlayout = QFormLayout()
@@ -27,17 +26,22 @@ class SecondWindow():
             vlayout.addRow("聚类簇个数:",self.l2)
             vlayout.addRow("最大迭代次数:",self.l3)
             vlayout.addWidget(self.btn_yes)
+
         elif algorithm == "BIRCH":
             self.l1 = QLabel("BIRCH算法")
 
         self.window.setLayout(vlayout)
 
-    def window_exit(self):
-        self.window.close()
 
+    def window_exit(self):
+        self.window._signal.emit("1111")
+        self.window.close()
 
     def show(self):
         self.window.show()
+        massage = "算法名称:"+self.l1.text() + "\n聚类簇个数" + self.l2.text() + "\n最大迭代次数" + self.l3.text()
+        return massage
+
 
 if __name__ == "__main__":
     app = QApplication([])
