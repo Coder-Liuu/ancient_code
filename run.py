@@ -38,18 +38,14 @@ class Main:
     def set_parameter(self):
         """ 设置分类器 """
         currentText = self.ui.btn_spin.currentText()
-        if(currentText == "KMeans"):
-            self.cluster.set_Cluster("KMeans")
-            print("----------------")
-            # 必须设置为全局变量
-            self.newWindow = SecondWindow(algorithm=currentText)
-            self.newWindow.show()
+        self.cluster.set_Cluster(currentText)
+        self.newWindow = SecondWindow(algorithm=currentText)
+        self.newWindow.btn_yes.clicked.connect(self.get_data)
+        self.newWindow.show()
 
-        # self.ui.tmessage_show.setText(message)
-
-    def get_data(self,tmp):
-        print("---->")
-        print(tmp)
+    def get_data(self):
+        self.newWindow.window_exit()
+        self.ui.tmessage_show.setText(self.newWindow.message)
 
     def run(self):
         """ 运行聚类算法 """
@@ -67,4 +63,3 @@ app = QApplication([])
 main = Main()
 main.ui.show()
 app.exec_()
-

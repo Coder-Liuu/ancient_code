@@ -21,7 +21,6 @@ class SecondWindow():
             self.l2.setValue(3)
             self.l3.setText(str(100))
 
-            self.btn_yes.clicked.connect(self.window_exit)
             vlayout.addRow("算法名称:",self.l1)
             vlayout.addRow("聚类簇个数:",self.l2)
             vlayout.addRow("最大迭代次数:",self.l3)
@@ -34,13 +33,11 @@ class SecondWindow():
 
 
     def window_exit(self):
-        self.window._signal.emit("1111")
+        self.message = "算法名称:"+self.l1.text() + "\n聚类簇个数" + self.l2.text() + "\n最大迭代次数" + self.l3.text()
         self.window.close()
 
     def show(self):
         self.window.show()
-        massage = "算法名称:"+self.l1.text() + "\n聚类簇个数" + self.l2.text() + "\n最大迭代次数" + self.l3.text()
-        return massage
 
 
 if __name__ == "__main__":
