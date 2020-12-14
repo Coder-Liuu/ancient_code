@@ -8,33 +8,35 @@ from pyclustering.cluster import cluster_visualizer
 from pyclustering.cluster.silhouette import silhouette
 from sklearn import metrics
 from sklearn.metrics.cluster import silhouette_score
-from sklearn.cluster import KMeans,Birch,DBSCAN,OPTICS,MeanShift
+from sklearn.cluster import KMeans,Birch,DBSCAN,OPTICS
 from pyclustering.cluster.clique import clique
 from sklearn.manifold import TSNE
-from packing import GMM,CLIQUE
+from packing import GMM,CLIQUE,MEANSHIFT
 
 
 class ClusterHelper:
     def __init__(self):
         self.cluster = None
 
-    def set_Cluster(self,algorithm):
+    def set_Cluster(self,algorithm,param_dict):
+        self.algorithm_name = algorithm
         if algorithm == "KMeans":
-            self.cluster = KMeans(3)
+            self.cluster = KMeans(param_dict[0],max_iter=param_dict[1])
         elif algorithm == "BIRCH":
-            self.cluster = Birch(n_clusters=3,threshold=0.5)
+            self.cluster = Birch(n_clusters=param_dict[0],threshold=param_dict[1])
         elif algorithm == "DBSCAN":
-            self.cluster = DBSCAN(eps=2,min_samples=2)
+            self.cluster = DBSCAN(eps=param_dict[0],min_samples=param_dict[1])
         elif algorithm == "GMM":
-            self.cluster = GMM()
+            self.cluster = GMM(n_clusters=param_dict[0],max_iter=param_dict[1])
         elif algorithm == "OPTICS":
-            self.cluster = OPTICS()
+            self.cluster = OPTICS(min_samples=param_dict[0],max_eps=param_dict[1])
         elif algorithm == "MeanShift":
-            self.cluster = MeanShift()
+            self.cluster = MEANSHIFT(quantile=param_dict[0],n_samples=param_dict[1])
         elif algorithm == "CLIQUE":
-            self.cluster = CLIQUE()
+            self.cluster = CLIQUE(intervals=param_dict[0],threshold=param_dict[1])
         else:
             print("没有找到分类器")
+        self.cluster.class_ = None
 
     def fit(self,data):
         if(self.cluster == None):
@@ -47,6 +49,7 @@ class ClusterHelper:
 
     def get_score(self,name="None"):
         self.pred = self.cluster.labels_
+        self.pred = np.where(self.pred > 1000,-1,self.pred)
 
         self.class_ = np.unique(self.pred)
         score = {}
@@ -60,14 +63,16 @@ class ClusterHelper:
     def imshow(self):
         for i in self.class_:
             d=self.data[self.pred==i].values
-            plt.scatter(d[:,0],d[:,1])
+            plt.scatter(d[:,0],d[:,1],label=i)
+        plt.title(self.algorithm_name)
+        plt.legend()
         plt.show()
 
 if __name__ == "__main__":
     data = pd.read_csv("data/iris.csv")
 
     cluster = ClusterHelper()
-    cluster.set_Cluster("CLIQUE")
+    cluster.set_Cluster("CLIQUE",[10,3])
     cluster.fit(data)
     score = cluster.get_score("轮廓系数")
     cluster.imshow()

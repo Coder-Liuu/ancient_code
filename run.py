@@ -21,9 +21,17 @@ class Main:
         self.ui.btn_choose_data.clicked.connect(self.choose_path)
         self.ui.btn_set_parameter.clicked.connect(self.set_parameter)
 
-        self.ui.btn_spin.addItems(["KMeans","DBSCAN","OPTICS","MeanShift","CLIQUE"])
+        self.ui.btn_spin.addItems(["KMeans","BIRCH","DBSCAN","OPTICS","MeanShift","CLIQUE"])
         self.ui.btn_run.clicked.connect(self.run)
         self.cluster = ClusterHelper()
+        self.ui.btn_show_image.clicked.connect(self.show_image)
+
+    def show_image(self):
+        """ 展示聚类结果 """
+        try:
+            self.cluster.imshow()
+        except:
+            QMessageBox.about(self.ui,"展示失败","请先训练你的聚类器")
 
     def choose_path(self):
         """ 选择数据集 """
@@ -44,7 +52,6 @@ class Main:
     def set_parameter(self):
         """ 设置分类器 """
         currentText = self.ui.btn_spin.currentText()
-        self.cluster.set_Cluster(currentText)
         self.newWindow = SecondWindow(algorithm=currentText)
         self.newWindow.btn_yes.clicked.connect(self.get_parameter)
         self.newWindow.show()
@@ -52,7 +59,24 @@ class Main:
     def get_parameter(self):
         """ 获得参数信息 """
         self.newWindow.window_exit()
+
         self.ui.tmessage_show.setText(self.newWindow.message)
+        currentText = self.ui.btn_spin.currentText()
+        param_dict = [eval(line.split(":")[1]) for line in self.newWindow.message.split("\n")[1:-1]]
+        self.cluster.set_Cluster(currentText,param_dict)
+
+
+    def show_data(self):
+        """
+        展示读取进来的数据
+        """
+        self.widget = DataTableWidget(self.ui)
+        model = DataFrameModel()
+        model.setDataFrame(self.DataHelper.data)
+        self.widget.setViewModel(model)
+        self.widget.move(30,200)
+        self.widget.resize(350,350)
+        self.widget.show()
 
     def run(self):
         """ 运行聚类算法 """
@@ -68,17 +92,6 @@ class Main:
                 text += item[0] + str(item[1]) + "\n"
             self.ui.t_ans.setText(text)
 
-    def show_data(self):
-        """
-        展示读取进来的数据
-        """
-        self.widget = DataTableWidget(self.ui)
-        model = DataFrameModel()
-        model.setDataFrame(self.DataHelper.data)
-        self.widget.setViewModel(model)
-        self.widget.move(30,200)
-        self.widget.resize(350,350)
-        self.widget.show()
 
 app = QApplication([])
 main = Main()

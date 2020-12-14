@@ -158,9 +158,9 @@
     <property name="geometry">
      <rect>
       <x>420</x>
-      <y>350</y>
+      <y>340</y>
       <width>291</width>
-      <height>181</height>
+      <height>161</height>
      </rect>
     </property>
    </widget>
@@ -214,17 +214,30 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_run_2">
+   <widget class="QPushButton" name="btn_show_image">
     <property name="geometry">
      <rect>
       <x>470</x>
-      <y>310</y>
+      <y>510</y>
       <width>191</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>点击查看聚类图形可视化</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>310</y>
+      <width>101</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>聚类评价指标</string>
     </property>
    </widget>
    <zorder>line_2</zorder>
@@ -244,7 +257,8 @@
    <zorder>ldata_shape</zorder>
    <zorder>ldata_class</zorder>
    <zorder>ldata_name</zorder>
-   <zorder>btn_run_2</zorder>
+   <zorder>btn_show_image</zorder>
+   <zorder>label_7</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

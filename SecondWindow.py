@@ -37,17 +37,18 @@ class SecondWindow():
             self.list[1].setValue(3)
             self.list[2].setText(str(100))
         elif algorithm == "OPTICS":
-            self.list = [QLabel(),QDoubleSpinBox(),QLineEdit()]
+            self.list = [QLabel(),QSpinBox(),QLineEdit()]
             self.str_list = ["算法名称:","最小样本数:","最大密度:"]
             self.list[0].setText("OPTICS算法")
             self.list[1].setValue(2)
             self.list[2].setText(str(2))
         elif algorithm == "MeanShift":
-            self.list = [QLabel(),QSpinBox(),QLineEdit()]
-            self.str_list = ["算法名称:","随机种子::","最大迭代次数:"]
+            self.list = [QLabel(),QDoubleSpinBox(),QLineEdit()]
+            self.str_list = ["算法名称:","样本分位数:","估计样本数:"]
             self.list[0].setText("MeanShift算法")
-            self.list[1].setValue(2)
-            self.list[2].setText(str(2))
+            self.list[1].setValue(0.2)
+            self.list[1].setSingleStep(0.1)
+            self.list[2].setText(str(500))
         elif algorithm == "CLIQUE":
             self.list = [QLabel(),QSpinBox(),QLineEdit()]
             self.str_list = ["算法名称:","网格步长:","密度阈值:"]
@@ -74,6 +75,6 @@ class SecondWindow():
 
 if __name__ == "__main__":
     app = QApplication([])
-    s = SecondWindow("KMeans")
+    s = SecondWindow("MeanShift")
     s.show()
     app.exec_()
