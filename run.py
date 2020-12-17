@@ -11,13 +11,13 @@ import matplotlib.pyplot as plt
 from qtpandas.compat import QtGui
 from qtpandas.models.DataFrameModel import DataFrameModel
 from qtpandas.views.DataTableView import DataTableWidget
+import qdarkstyle
 
 
 class Main:
     def __init__(self):
         """ 初始化主界面 """
         self.ui = loadUi("UI/main.ui")
-        self.readQss("UI/dark.qss")
         self.DataHelper = None
         self.ui.btn_choose_data.clicked.connect(self.choose_path)
         self.ui.btn_set_parameter.clicked.connect(self.set_parameter)
@@ -26,11 +26,6 @@ class Main:
         self.ui.btn_run.clicked.connect(self.run)
         self.cluster = ClusterHelper()
         self.ui.btn_show_image.clicked.connect(self.show_image)
-
-    def readQss(self,style):
-        with open(style, 'r') as f:
-            qss = f.read()
-        self.ui.setStyleSheet(qss)
 
     def show_image(self):
         """ 展示聚类结果 """
@@ -100,6 +95,7 @@ class Main:
 
 
 app = QApplication([])
+app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 main = Main()
 main.ui.show()
 app.exec_()
