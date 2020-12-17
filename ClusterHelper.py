@@ -61,18 +61,23 @@ class ClusterHelper:
         return score
 
     def imshow(self):
-        for i in self.class_:
-            d=self.data[self.pred==i].values
-            plt.scatter(d[:,0],d[:,1],label=i)
-        plt.title(self.algorithm_name)
+        yshape = self.data.shape[1]
+        fig = plt.figure()
+        fig.canvas.set_window_title(self.algorithm_name)
+        for i in range(yshape):
+            for j in range(yshape):
+                print(i,j,1)
+                plt.subplot(yshape,yshape,i*yshape+j+1)
+                for class_ in self.class_:
+                    d=self.data[self.pred==class_].values
+                    plt.scatter(d[:,i],d[:,j],label=class_)
         plt.legend()
         plt.show()
 
 if __name__ == "__main__":
-    data = pd.read_csv("data/iris.csv")
-
+    data = pd.read_csv("data/ecoli1.csv")
     cluster = ClusterHelper()
-    cluster.set_Cluster("CLIQUE",[10,3])
+    cluster.set_Cluster("KMeans",[3,100])
     cluster.fit(data)
     score = cluster.get_score("轮廓系数")
     cluster.imshow()
