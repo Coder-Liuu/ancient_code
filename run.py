@@ -1,28 +1,27 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow,QMessageBox,QWidget,QPlainTextEdit,QLabel,QBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QWidget, QPlainTextEdit, QLabel, QBoxLayout
 from PyQt5.uic import loadUi
 from PyQt5 import QtCore, QtWidgets
-import pyqtgraph as pg
-from DataHelper import DataHelper
-from SecondWindow import SecondWindow
-from ClusterHelper import ClusterHelper
-import pandas as pd
-import matplotlib.pyplot as plt
+from PyQt5.Qt import QIcon
 from qtpandas.compat import QtGui
 from qtpandas.models.DataFrameModel import DataFrameModel
 from qtpandas.views.DataTableView import DataTableWidget
 import qdarkstyle
+from DataHelper import DataHelper
+from SecondWindow import SecondWindow
+from ClusterHelper import ClusterHelper
 
 
 class Main:
     def __init__(self):
         """ 初始化主界面 """
         self.ui = loadUi("UI/main.ui")
+        self.ui.setWindowTitle("聚类系统")
         self.DataHelper = None
         self.ui.btn_choose_data.clicked.connect(self.choose_path)
         self.ui.btn_set_parameter.clicked.connect(self.set_parameter)
 
-        self.ui.btn_spin.addItems(["KMeans","BIRCH","DBSCAN","OPTICS","MeanShift","CLIQUE"])
+        self.ui.btn_spin.addItems(
+            ["KMeans", "GMM", "DBSCAN", "OPTICS","BIRCH", "MeanShift", "CLIQUE"])
         self.ui.btn_run.clicked.connect(self.run)
         self.cluster = ClusterHelper()
         self.ui.btn_show_image.clicked.connect(self.show_image)
@@ -32,11 +31,12 @@ class Main:
         try:
             self.cluster.imshow()
         except:
-            QMessageBox.about(self.ui,"展示失败","请先训练你的聚类器")
+            QMessageBox.about(self.ui, "展示失败", "请先训练你的聚类器")
 
     def choose_path(self):
         """ 选择数据集 """
-        file_name = QtWidgets.QFileDialog.getOpenFileName(self.ui,"请选择你要打开数据的名字","./data/","Csv files(*.csv)") 
+        file_name = QtWidgets.QFileDialog.getOpenFileName(
+            self.ui, "请选择你要打开数据的名字", "./data/", "Csv files(*.csv)")
         file_name = file_name[0]
         self.DataHelper = DataHelper(file_name)
 
@@ -63,9 +63,9 @@ class Main:
 
         self.ui.tmessage_show.setText(self.newWindow.message)
         currentText = self.ui.btn_spin.currentText()
-        param_dict = [eval(line.split(":")[1]) for line in self.newWindow.message.split("\n")[1:-1]]
-        self.cluster.set_Cluster(currentText,param_dict)
-
+        param_dict = [eval(line.split(":")[1])
+                      for line in self.newWindow.message.split("\n")[1:-1]]
+        self.cluster.set_Cluster(currentText, param_dict)
 
     def show_data(self):
         """
@@ -75,16 +75,16 @@ class Main:
         model = DataFrameModel()
         model.setDataFrame(self.DataHelper.data)
         self.widget.setViewModel(model)
-        self.widget.move(30,200)
-        self.widget.resize(350,350)
+        self.widget.move(30, 200)
+        self.widget.resize(350, 350)
         self.widget.show()
 
     def run(self):
         """ 运行聚类算法 """
         if(self.DataHelper == None):
-            QMessageBox.about(self.ui,"运行失败","请选择你的数据集")
-        elif(self.cluster.cluster == None ):
-            QMessageBox.about(self.ui,"运行失败","请初始化你的聚类器")
+            QMessageBox.about(self.ui, "运行失败", "请选择你的数据集")
+        elif(self.cluster.cluster == None):
+            QMessageBox.about(self.ui, "运行失败", "请初始化你的聚类器")
         else:
             self.cluster.fit(self.DataHelper.data)
             score = self.cluster.get_score()
