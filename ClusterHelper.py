@@ -66,7 +66,6 @@ class ClusterHelper:
         fig.canvas.set_window_title(self.algorithm_name)
         for i in range(yshape):
             for j in range(yshape):
-                print(i,j,1)
                 plt.subplot(yshape,yshape,i*yshape+j+1)
                 for class_ in self.class_:
                     d=self.data[self.pred==class_].values
